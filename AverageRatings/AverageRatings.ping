@@ -1,0 +1,5 @@
+data = LOAD 'Ratings.txt' USING PigStorage (',')AS (movie_id:int,user_id:chararray, rating:int);
+grouped = GROUP data BY user_id;
+sums = FOREACH grouped GENERATE group,AVG(data.rating);
+DUMP sums;
+STORE sums INTO 'avg_ratings';
